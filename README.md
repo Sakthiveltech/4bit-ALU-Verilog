@@ -8,7 +8,7 @@ Functional verification is performed using **Icarus Verilog**, **VCD waveform ge
 ---
 
 ## 🧠 ALU Architecture
-![ALU Architecture](architecture/alu_block_diagram.png)
+![ALU Architecture](4-bit-ALU-Verilog/architecture/architecture.jpeg)
 
 ---
 
