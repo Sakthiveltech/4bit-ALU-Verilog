@@ -1,0 +1,45 @@
+// 4-bit ALU with 16 Operations and Status Flags
+
+module alu_4bit (
+    input [3:0] A, B,           // 4-bit Data Inputs
+    input [3:0] OpCode,         // 4-bit Operation Selector (16 ops)
+    output reg [3:0] Result,    // 4-bit Output
+    output reg CarryOut,        // Carry Flag
+    output ZeroFlag,            // Zero Flag
+    output NegativeFlag         // Negative Flag
+);
+
+    // Continuous assignments for flags
+    assign ZeroFlag = (Result == 4'b0000);
+    assign NegativeFlag = Result[3]; // MSB is 1 for negative in 2's complement
+
+    always @(*) begin
+        CarryOut = 0; // Default value to avoid latches
+        case(OpCode)
+            // Arithmetic
+            4'b0000: {CarryOut, Result} = A + B;       // Addition
+            4'b0001: {CarryOut, Result} = A - B;       // Subtraction
+            4'b0010: Result = A * B;                  // Multiplication
+            4'b0011: Result = A + 1;                  // Increment A
+            
+            // Logical
+            4'b0100: Result = A & B;                  // AND
+            4'b0101: Result = A | B;                  // OR
+            4'b0110: Result = A ^ B;                  // XOR
+            4'b0111: Result = ~(A | B);               // NOR
+            4'b1000: Result = ~A;                     // NOT A
+            
+            // Shifts & Rotates
+            4'b1001: Result = A << 1;                 // Logical Left Shift
+            4'b1010: Result = A >> 1;                 // Logical Right Shift
+            4'b1011: Result = {A[2:0], A[3]};         // Rotate Left
+            4'b1100: Result = {A[0], A[3:1]};         // Rotate Right
+            
+            // Comparisons
+            4'b1101: Result = (A > B) ? 4'b0001 : 4'b0000;
+            4'b1110: Result = (A == B) ? 4'b0001 : 4'b0000;
+            
+            default: Result = 4'b0000;
+        endcase
+    end
+endmodule

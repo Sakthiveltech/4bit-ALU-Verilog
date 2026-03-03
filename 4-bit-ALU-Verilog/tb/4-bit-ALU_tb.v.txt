@@ -1,0 +1,30 @@
+
+
+module alu_tb;
+    reg [3:0] A, B, OpCode;
+    wire [3:0] Result;
+    wire CarryOut, ZeroFlag, NegativeFlag;
+
+    // Instantiate the ALU
+    alu_4bit uut (A, B, OpCode, Result, CarryOut, ZeroFlag, NegativeFlag);
+
+    initial begin
+        // Required for Icarus Verilog/GTKWave
+        $dumpfile("alu_waves.vcd");
+        $dumpvars(0, alu_tb);
+
+        $display("Time | Op | A | B | Res | C | Z | N");
+        $monitor("%4t | %b | %d | %d | %d | %b | %b | %b", $time, OpCode, A, B, Result, CarryOut, ZeroFlag, NegativeFlag);
+
+        // Test Addition
+        A = 4'd10; B = 4'd5; OpCode = 4'b0000; #10;
+        // Test Subtraction
+        A = 4'd10; B = 4'd5; OpCode = 4'b0001; #10;
+        // Test AND
+        A = 4'b1100; B = 4'b1010; OpCode = 4'b0100; #10;
+        // Test Rotate Left
+        A = 4'b1000; OpCode = 4'b1011; #10;
+        
+        $finish;
+    end
+endmodule

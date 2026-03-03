@@ -1,0 +1,8 @@
+# Compile the ALU design and testbench
+iverilog -o alu_sim src/alu_4bit.v tb/alu_4bit_tb.v
+
+# Run the simulation to generate the VCD file
+vvp alu_sim
+
+# Open the waveform using GTKWave
+gtkwave 4bit_alu.vcd
