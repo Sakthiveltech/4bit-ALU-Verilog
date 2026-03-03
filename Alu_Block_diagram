@@ -1,0 +1,25 @@
+## 🧠 ALU Architecture
+
+The 4-bit ALU is designed using a **combinational RTL architecture**.  
+It accepts two 4-bit operands (`A[3:0]` and `B[3:0]`) and a 4-bit `opcode` that selects the required operation.
+
+### Architectural Overview
+- Arithmetic, logical, shift, rotate, and comparison operations are implemented within a single combinational block.
+- A `case`-based opcode decoder selects the appropriate operation.
+- Arithmetic operations internally use an extended bit-width to generate the **carry flag**.
+- Status flags are generated based on the final ALU result.
+
+### Functional Blocks
+- **Arithmetic Unit**: Performs addition, subtraction, multiplication, and increment operations.
+- **Logic Unit**: Supports AND, OR, XOR, NOR, and NOT operations.
+- **Shift & Rotate Unit**: Handles logical shifts and rotate operations.
+- **Comparison Unit**: Evaluates relational operations such as greater-than and equality.
+- **Flag Logic**: Generates Carry (C), Zero (Z), and Negative (N) flags.
+
+### Output Signals
+- `result[3:0]` – Final ALU output
+- `C` – Carry flag
+- `Z` – Zero flag
+- `N` – Negative flag (MSB-based)
+
+The entire ALU is implemented as a **fully combinational module**, making it suitable for synthesis and easy integration into larger processor datapaths.
