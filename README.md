@@ -51,7 +51,7 @@ Functional verification is performed using **Icarus Verilog**, **VCD waveform ge
 ### Simulation Commands
 ```bash
 # Compile the ALU design and testbench
-iverilog -o alu_sim src/alu_4bit.v tb/alu_4bit_tb.v
+iverilog -o alu_sim alu_4bit.v alu_4bit_tb.v
 
 # Run simulation and generate VCD file
 vvp alu_sim
